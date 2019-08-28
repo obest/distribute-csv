@@ -7,6 +7,8 @@
 # 2 Test on Windows Server 2012 R2
 # 3 Error Handling
 # 4 Change Outputs to eventlog so script can be scheduled
+# 5 Handle each CSV and not only the one which have to be moved in the loop to have a more complete output
+# 6 Optional: Change loop to get all VMs and handle the repective CSV to have a more complete output
 
 cls
   
@@ -30,10 +32,13 @@ ForEach ($CSV in $AllCSV)
      
     ForEach ($VM in $VMsToMove)
      {
-        write-output "`tThe VM $($VM.Name) located on $CSVPath is not running on host $($CSV.OwnerNode.Name) who owns that CSV"
-        write-output "`tbut on $($VM.Computername). The CSV will be migrated."
+        Write-Host "`tThe VM $($VM.Name) located on $CSVPath is not running on host $($CSV.OwnerNode.Name) who owns that CSV"
+        Write-Host "`tbut on $($VM.Computername). The CSV will be migrated to $($VM.Computername)."
+        Write-Host
         #Live migrate that VM off to the Node that owns the CSV it resides on
+        
         #  Move-ClusterVirtualMachineRole -Name $VM.Name -MigrationType Live -Node $CSV.OWnernode.Name 
-        Move-ClusterSharedVolume -Name $CSV.Name -Node $VM.ComputerName
+        
+        Move-ClusterSharedVolume -Name $CSV.Name -Node $VM.ComputerName 
     }
 }
