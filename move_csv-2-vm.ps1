@@ -33,12 +33,12 @@ ForEach ($CSV in $AllCSV)
     ForEach ($VM in $VMsToMove)
      {
         Write-Host "`tThe VM $($VM.Name) located on $CSVPath is not running on host $($CSV.OwnerNode.Name) who owns that CSV"
-        Write-Host "`tbut on $($VM.Computername). The CSV will be migrated to $($VM.Computername)."
-        Write-Host
+        Write-Host "`tbut on $($VM.Computername). The CSV will be migrated to $($VM.Computername).`n"
+                
         #Live migrate that VM off to the Node that owns the CSV it resides on
+        # Move-ClusterVirtualMachineRole -Name $VM.Name -MigrationType Live -Node $CSV.OWnernode.Name | Out-Null
         
-        #  Move-ClusterVirtualMachineRole -Name $VM.Name -MigrationType Live -Node $CSV.OWnernode.Name 
-        
-        Move-ClusterSharedVolume -Name $CSV.Name -Node $VM.ComputerName 
+        #Move the Ownership of that CSV to the VM hosting node
+        Move-ClusterSharedVolume -Name $CSV.Name -Node $VM.ComputerName | Out-Null
     }
 }
