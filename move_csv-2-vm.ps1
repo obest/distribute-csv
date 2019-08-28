@@ -1,4 +1,14 @@
-﻿cls
+# Original Script is from 'Working Hard In IT' 
+# https://blog.workinghardinit.work/2015/04/07/optimizing-backups-powershell-script-to-move-all-virtual-machines-on-a-cluster-shared-volume-to-the-node-owing-that-csv/
+# I've changed primarily the move VM to CSV to CSV to VM.
+
+# ToDo
+# 1 Text Modifications
+# 2 Test on Windows Server 2012 R2
+# 3 Error Handling
+# 4 Change Outputs to eventlog so script can be scheduled
+
+cls
   
 $Cluster = Get-Cluster
 $AllCSV = Get-ClusterSharedVolume -Cluster $Cluster
