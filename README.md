@@ -10,6 +10,7 @@ But nowadays due to the automatic CSV distribuition mechanism and the fact that 
 
 Looking around I found this nice little script on Didier Van Hoye's blog which describe the vice-versa problem from an actual point of view when u use "Pool"-CSVs and the VMs are wild spread over the cluster.
 https://blog.workinghardinit.work/2015/04/07/optimizing-backups-powershell-script-to-move-all-virtual-machines-on-a-cluster-shared-volume-to-the-node-owing-that-csv/
-
 I use this script as a base and changed it from moving the VMs to the CSV to moving the CSV to the VM.
+
+The idea is to schedule this frequently so that when a backup happen there will be no, or less Redirected Traffic to streamline the Backupspeed
 
